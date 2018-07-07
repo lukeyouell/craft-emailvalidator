@@ -80,7 +80,7 @@ You can validate an email address from within your templates by using the follow
 {{ validateEmail('joe.bloggs@email.co.uk') }}
 ```
 
-This will return this [Response](#response).
+[This response](#response) will be returned.
 
 ### Plugins/Modules
 
@@ -92,7 +92,7 @@ use lukeyouell\emailvalidator\EmailValidator;
 EmailValidator::getInstance()->emailValidatorService->validateEmail('joe.bloggs@email.co.uk');
 ```
 
-This will return this [Response](#response).
+[This response](#response) will be returned.
 
 ## Response
 
