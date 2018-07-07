@@ -81,7 +81,7 @@ class EmailValidatorService extends Component
         }
 
         // Only supply suggestion if there are other errors
-        if (count($errors) > 0 and $this->didYouMean()) {
+        if ($this->settings->typoCheck and count($errors) > 0 and $this->didYouMean()) {
             $errors[] = 'Did you mean '.$this->didYouMean().'?';
         }
 
