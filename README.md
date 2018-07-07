@@ -4,9 +4,9 @@
 
 Email address validation for user registrations, custom forms and more.
 
-<img src="resources/screenshots/frontend.png" alt="frontend">
-
 <img src="resources/screenshots/cp.png" alt="frontend">
+
+<img src="resources/screenshots/frontend.png" alt="frontend">
 
 ## Installation
 
