@@ -1,0 +1,79 @@
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting) -%}
+  {% set setting = '<code>' ~ setting ~ '</code>' %}
+  {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('email-validator', {
+      setting: setting,
+      file:    'email-validator.php'
+  })|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+{{ forms.lightswitchField({
+  first:         true,
+  label:        'Format Check',
+  instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',
+  on:           true,
+  disabled:     true
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Typo Check & Suggestions',
+  instructions: 'Provide an alternative email suggestion if a typo is detected in the domain part of the email address.',
+  id:           'typoCheck',
+  name:         'typoCheck',
+  on:           settings.typoCheck,
+  disabled:     'typoCheck' in overrides,
+  warning:      'typoCheck' in overrides ? configWarning('typoCheck')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'MX Record Check',
+  instructions: 'Allow domains that aren\'t configured to receive email.',
+  id:           'allowNoMX',
+  name:         'allowNoMX',
+  on:           settings.allowNoMX,
+  disabled:     'allowNoMX' in overrides,
+  warning:      'allowNoMX' in overrides ? configWarning('allowNoMX')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Catch All Check',
+  instructions: 'Allow domains that are configured to catch all incoming mail traffic.',
+  id:           'allowCatchAll',
+  name:         'allowCatchAll',
+  on:           settings.allowCatchAll,
+  disabled:     'allowCatchAll' in overrides,
+  warning:      'allowCatchAll' in overrides ? configWarning('allowCatchAll')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Role Check',
+  instructions: 'Allow role-based email addresses.',
+  id:           'allowRoles',
+  name:         'allowRoles',
+  on:           settings.allowRoles,
+  disabled:     'allowRoles' in overrides,
+  warning:      'allowRoles' in overrides ? configWarning('allowRoles')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Free Provider Check',
+  instructions: 'Allow email addresses found to be using a free email provider such as Gmail and Yahoo!.',
+  id:           'allowFree',
+  name:         'allowFree',
+  on:           settings.allowFree,
+  disabled:     'allowFree' in overrides,
+  warning:      'allowFree' in overrides ? configWarning('allowFree')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Disposable Provider Check',
+  instructions: 'Allow email addresses found to be using a disposable email provider.',
+  id:           'allowDisposable',
+  name:         'allowDisposable',
+  on:           settings.allowDisposable,
+  disabled:     'allowDisposable' in overrides,
+  warning:      'allowDisposable' in overrides ? configWarning('allowDisposable')
+}) }}
