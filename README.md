@@ -88,7 +88,7 @@ You can validate an email address from within your templates by using the follow
 
 ### Plugins/Modules
 
-You can also validate email addresses from within your own plugins and modules by utilising the plugin's `EmailValidatorService`
+You can also validate an email address from within your own plugins/modules:
 
 ```php
 use lukeyouell\emailvalidator\EmailValidator;
