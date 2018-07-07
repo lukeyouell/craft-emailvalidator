@@ -2,10 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.3 - 2018-07-07
+
+### Fixed
+- Typo check wasn't respecting settings value
+
 ## 1.0.2 - 2018-07-07
 
 ### Fixed
-- Version mis-match 
+- Version mis-match
 
 ## 1.0.1 - 2018-07-07
 
