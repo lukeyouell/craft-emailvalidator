@@ -80,7 +80,7 @@ These settings can be found in `Settings > Users > Settings`
 
 You can validate an email address from within your templates by using the following function:
 
-```
+```twig
 {% set validation = validateEmail('joe.bloggs@email.co.uk') %}
 
 <pre>{{ validation|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
@@ -149,7 +149,9 @@ Returns `true` or `false` depending on whether or not the requested email addres
 Some things to do, and ideas for potential features:
 
 * Translations
+* SMTP verification
 * Commerce integration
 * Events
+* Validation score
 
 Brought to you by [Luke Youell](https://github.com/lukeyouell)
