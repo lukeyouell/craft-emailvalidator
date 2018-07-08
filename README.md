@@ -81,7 +81,9 @@ These settings can be found in `Settings > Users > Settings`
 You can validate an email address from within your templates by using the following function:
 
 ```
-{{ validateEmail('joe.bloggs@email.co.uk') }}
+{% set validation = validateEmail('joe.bloggs@email.co.uk') %}
+
+<pre>{{ validation|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
 ```
 
 [This response](#response) will be returned.
