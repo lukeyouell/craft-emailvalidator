@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+- Error translations
+
 ## 1.0.3 - 2018-07-07
 
 ### Fixed

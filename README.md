@@ -148,7 +148,6 @@ Returns `true` or `false` depending on whether or not the requested email addres
 
 Some things to do, and ideas for potential features:
 
-* Translations
 * SMTP verification
 * Commerce integration
 * Events
