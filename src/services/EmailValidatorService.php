@@ -11,12 +11,20 @@
 namespace lukeyouell\emailvalidator\services;
 
 use lukeyouell\emailvalidator\EmailValidator;
+use lukeyouell\emailvalidator\events\ValidationEvent;
 
 use Craft;
 use craft\base\Component;
 
 class EmailValidatorService extends Component
 {
+    // Constants
+    // =========================================================================
+
+    const EVENT_BEFORE_VALIDATE = 'beforeValidate';
+
+    const EVENT_AFTER_VALIDATE = 'afterValidate';
+
     // Public Properties
     // =========================================================================
 
@@ -38,6 +46,13 @@ class EmailValidatorService extends Component
     {
         $this->email = $email;
 
+        // Trigger beforeValidate event
+        $event = new ValidationEvent([
+            'email' => $this->email,
+        ]);
+        $self = new static;
+        $self->trigger(self::EVENT_BEFORE_VALIDATE, $event);
+
         $result = [
             'email'        => $this->email,
             'user'         => $this->getUser(),
@@ -50,6 +65,14 @@ class EmailValidatorService extends Component
             'free'         => $this->isFree(),
             'disposable'   => $this->isDisposable()
         ];
+
+        // Trigger afterValidate event
+        $event = new ValidationEvent([
+            'email'      => $this->email,
+            'validation' => $result,
+        ]);
+        $self = new static;
+        $self->trigger(self::EVENT_AFTER_VALIDATE, $event);
 
         return $result;
     }

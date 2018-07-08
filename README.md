@@ -150,7 +150,6 @@ Some things to do, and ideas for potential features:
 
 * SMTP verification
 * Commerce integration
-* Events
 * Validation score
 
 Brought to you by [Luke Youell](https://github.com/lukeyouell)
