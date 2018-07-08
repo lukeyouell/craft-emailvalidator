@@ -2,7 +2,7 @@
     "name": "lukeyouell/craft-emailvalidator",
     "description": "Email address validation for user registrations, custom forms and more.",
     "type": "craft-plugin",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "keywords": [
         "craft",
         "cms",

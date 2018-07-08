@@ -71,15 +71,6 @@ class EmailValidator extends Plugin
             'emailValidatorService'   => \lukeyouell\emailvalidator\services\EmailValidatorService::class,
             'emailProviderService'    => \lukeyouell\emailvalidator\services\EmailProviderService::class,
         ]);
-
-        Craft::info(
-            Craft::t(
-                'email-validator',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
-        );
     }
 
     // Protected Methods

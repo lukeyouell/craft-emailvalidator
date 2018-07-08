@@ -11,12 +11,20 @@
 namespace lukeyouell\emailvalidator\services;
 
 use lukeyouell\emailvalidator\EmailValidator;
+use lukeyouell\emailvalidator\events\ValidationEvent;
 
 use Craft;
 use craft\base\Component;
 
 class EmailValidatorService extends Component
 {
+    // Constants
+    // =========================================================================
+
+    const EVENT_BEFORE_VALIDATE = 'beforeValidate';
+
+    const EVENT_AFTER_VALIDATE = 'afterValidate';
+
     // Public Properties
     // =========================================================================
 
@@ -38,6 +46,13 @@ class EmailValidatorService extends Component
     {
         $this->email = $email;
 
+        // Trigger beforeValidate event
+        $event = new ValidationEvent([
+            'email' => $this->email,
+        ]);
+        $self = new static;
+        $self->trigger(self::EVENT_BEFORE_VALIDATE, $event);
+
         $result = [
             'email'        => $this->email,
             'user'         => $this->getUser(),
@@ -51,38 +66,48 @@ class EmailValidatorService extends Component
             'disposable'   => $this->isDisposable()
         ];
 
+        // Trigger afterValidate event
+        $event = new ValidationEvent([
+            'email'      => $this->email,
+            'validation' => $result,
+        ]);
+        $self = new static;
+        $self->trigger(self::EVENT_AFTER_VALIDATE, $event);
+
         return $result;
     }
 
     public function getValidationErrors($email = null)
     {
-        $this->email = $email;
+        $validation = $this->validateEmail($email);
 
         $errors = [];
 
-        if (!$this->checkFormat()) {
-            $errors[] = 'Invalid email format.';
+        if (!$validation['format_valid']) {
+            $errors[] = Craft::t('email-validator', 'Invalid email format.');
         }
 
-        if (!$this->settings->allowNoMX and !$this->checkDns()) {
-            $errors[] = 'MX records do not exist for this domain.';
+        if (!$this->settings->allowNoMX and !$validation['mx_found']) {
+            $errors[] = Craft::t('email-validator', 'MX records do not exist for this domain.');
         }
 
-        if (!$this->settings->allowRoles and $this->isRole()) {
-            $errors[] = 'Role-based email addresses are not allowed.';
+        if (!$this->settings->allowRoles and $validation['role']) {
+            $errors[] = Craft::t('email-validator', 'Role-based email addresses are not allowed.');
         }
 
-        if (!$this->settings->allowFree and $this->isFree()) {
-            $errors[] = 'Email addresses supplied by free providers are not allowed.';
+        if (!$this->settings->allowFree and $validation['free']) {
+            $errors[] = Craft::t('email-validator', 'Email addresses supplied by free providers are not allowed.');
         }
 
-        if (!$this->settings->allowDisposable and $this->isDisposable()) {
-            $errors[] = 'Disposable email addresses are not allowed.';
+        if (!$this->settings->allowDisposable and $validation['disposable']) {
+            $errors[] = Craft::t('email-validator', 'Disposable email addresses are not allowed.');
         }
 
         // Only supply suggestion if there are other errors
-        if ($this->settings->typoCheck and count($errors) > 0 and $this->didYouMean()) {
-            $errors[] = 'Did you mean '.$this->didYouMean().'?';
+        if ($this->settings->typoCheck and count($errors) > 0 and $validation['did_you_mean']) {
+            $errors[] = Craft::t('email-validator', 'Did you mean {suggestion}?', [
+                'suggestion' => $validation['did_you_mean']
+            ]);
         }
 
         return $errors;

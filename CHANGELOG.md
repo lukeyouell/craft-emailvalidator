@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.4 - 2018-07-08
+
+### Added
+- Error translations
+- `beforeValidate` and `afterValidate` events
+
+### Changed
+- Removed duplicated code
+
 ## 1.0.3 - 2018-07-07
 
 ### Fixed
