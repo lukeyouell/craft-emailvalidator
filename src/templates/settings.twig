@@ -1,26 +1,29 @@
 {% import "_includes/forms" as forms %}
 
+{% do view.registerAssetBundle("lukeyouell\\emailvalidator\\assetbundles\\SettingsAsset") %}
+
 <h2 class="first">Providers</h2>
 
 <table class="data fullwidth fixed-layout">
   <tbody>
     <tr>
       <th class="light">Free</th>
-      <td>{{ freeProviderCount }}</td>
+      <td id="freeProviderCount">{{ freeProviderCount }}</td>
     </tr>
     <tr>
       <th class="light">Disposable</th>
-      <td>{{ disposableProviderCount }}</td>
+      <td id="disposableProviderCount">{{ disposableProviderCount }}</td>
     </tr>
     <tr>
       <th class="light">Total</th>
-      <td>{{ freeProviderCount + disposableProviderCount }}</td>
+      <td id="totalProviderCount">{{ freeProviderCount + disposableProviderCount }}</td>
     </tr>
   </tbody>
 </table>
 
 <div class="buttons">
-  <div class="btn submit">Update providers</div>
+  <div class="btn submit" id="updateProviders">Update providers</div>
+  <div class="spinner hidden" id="updateProvidersSpinner"></div>
 </div>
 
 <h2>Settings</h2>

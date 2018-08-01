@@ -15,27 +15,32 @@ use lukeyouell\emailvalidator\EmailValidator;
 use Craft;
 use craft\web\Controller;
 
+use yii\helpers\Json;
 use yii\web\Response;
 
-class TestController extends Controller
+class ProvidersController extends Controller
 {
     // Protected Properties
     // =========================================================================
 
-    protected $allowAnonymous = ['free', 'disposable'];
+    protected $allowAnonymous = ['ajax'];
 
     // Public Methods
     // =========================================================================
 
-    public function actionFree()
+    public function actionAjax()
     {
-        $response = EmailValidator::getInstance()->recordService->updateProviders('free');
+        EmailValidator::getInstance()->recordService->updateProviders('free');
+        EmailValidator::getInstance()->recordService->updateProviders('disposable');
 
-        if ($response) {
-            return 'success!';
-        } else {
-            return 'failed.';
-        }
+        $freeProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('free');
+        $disposableProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('disposable');
+
+        return Json::encode([
+            'freeProviderCount'       => $freeProviderCount,
+            'disposableProviderCount' => $disposableProviderCount,
+            'totalProviderCount'      => $freeProviderCount + $disposableProviderCount,
+        ]);
     }
 
     public function actionDisposable()
