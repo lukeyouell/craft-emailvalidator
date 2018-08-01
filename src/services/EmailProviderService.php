@@ -52,8 +52,10 @@ class EmailProviderService extends Component
     public function getProvider($domain, $type)
     {
         $result = $this->_createProviderQuery()
-            ->where(['domain' => $domain])
-            ->where(['type' => $type])
+            ->where([
+                'domain' => $domain,
+                'type'   => $type,
+            ])
             ->one();
 
         return new ProviderModel($result);
