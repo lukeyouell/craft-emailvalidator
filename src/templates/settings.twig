@@ -1,5 +1,30 @@
 {% import "_includes/forms" as forms %}
 
+<h2 class="first">Providers</h2>
+
+<table class="data fullwidth fixed-layout">
+  <tbody>
+    <tr>
+      <th class="light">Free</th>
+      <td>{{ freeProviderCount }}</td>
+    </tr>
+    <tr>
+      <th class="light">Disposable</th>
+      <td>{{ disposableProviderCount }}</td>
+    </tr>
+    <tr>
+      <th class="light">Total</th>
+      <td>{{ freeProviderCount + disposableProviderCount }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="buttons">
+  <div class="btn submit">Update providers</div>
+</div>
+
+<h2>Settings</h2>
+
 {% macro configWarning(setting) -%}
   {% set setting = '<code>' ~ setting ~ '</code>' %}
   {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('email-validator', {
@@ -77,3 +102,4 @@
   disabled:     'allowDisposable' in overrides,
   warning:      'allowDisposable' in overrides ? configWarning('allowDisposable')
 }) }}
+</div>

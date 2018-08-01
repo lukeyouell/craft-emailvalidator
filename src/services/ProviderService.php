@@ -39,6 +39,15 @@ class ProviderService extends Component
         return $providers;
     }
 
+    public function countProvidersByType($type)
+    {
+        $count = $this->_createProviderQuery()
+            ->where(['type' => $type])
+            ->count();
+
+        return $count;
+    }
+
     public function getProviderByDomain($domain)
     {
         $result = $this->_createProviderQuery()

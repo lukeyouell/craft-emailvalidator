@@ -100,8 +100,10 @@ class EmailValidator extends Plugin
        return Craft::$app->view->renderTemplate(
             'email-validator/settings',
             [
-               'settings' => $settings,
-               'overrides' => array_keys($overrides)
+               'freeProviderCount'       => $this->providerService->countProvidersByType('free'),
+               'disposableProviderCount' => $this->providerService->countProvidersByType('disposable'),
+               'settings'                => $settings,
+               'overrides'               => array_keys($overrides)
            ]
         );
     }
