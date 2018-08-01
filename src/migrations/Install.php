@@ -10,6 +10,8 @@
 
 namespace lukeyouell\emailvalidator\migrations;
 
+use lukeyouell\emailvalidator\EmailValidator;
+
 use Craft;
 use craft\config\DbConfig;
 use craft\db\Migration;
@@ -31,6 +33,9 @@ class Install extends Migration
         if ($this->createTables()) {
             // Refresh the db schema caches
             Craft::$app->db->schema->refresh();
+            // Populate ev_providers with providers
+            EmailValidator::getInstance()->recordService->updateProviders('free');
+            EmailValidator::getInstance()->recordService->updateProviders('disposable');
         }
 
         return true;

@@ -59,7 +59,7 @@ class EmailValidator extends Plugin
         // Validate email address on user save
         Event::on(User::class, User::EVENT_BEFORE_VALIDATE, function(ModelEvent $e) {
             $user = $e->sender;
-            $errors = $this->emailValidatorService->getValidationErrors($user->email);
+            $errors = $this->validationService->getValidationErrors($user->email);
 
             foreach ($errors as $error) {
                 $user->addError('email', $error);
@@ -68,8 +68,9 @@ class EmailValidator extends Plugin
 
         // Register components
         $this->setComponents([
-            'emailValidatorService'   => \lukeyouell\emailvalidator\services\EmailValidatorService::class,
-            'emailProviderService'    => \lukeyouell\emailvalidator\services\EmailProviderService::class,
+            'validationService'   => \lukeyouell\emailvalidator\services\ValidationService::class,
+            'providerService'     => \lukeyouell\emailvalidator\services\ProviderService::class,
+            'recordService'       => \lukeyouell\emailvalidator\services\RecordService::class,
         ]);
     }
 

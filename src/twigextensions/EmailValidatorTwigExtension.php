@@ -54,6 +54,6 @@ class EmailValidatorTwigExtension extends \Twig_Extension
 
     public function validateEmail($email = null)
     {
-        return EmailValidator::getInstance()->emailValidatorService->validateEmail($email);
+        return EmailValidator::getInstance()->validationService->validateEmail($email);
     }
 }
