@@ -230,10 +230,14 @@ class EmailValidatorService extends Component
     private function isFree()
     {
         try {
-            $providers = EmailValidator::getInstance()->emailProviderService->freeProviders();
             $domain = $this->getDomain();
+            $provider = EmailValidator::getInstance()->emailProviderService->getProvider($domain, 'free');
 
-            return in_array($domain, $providers);
+            if ($provider->id) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (\Exception $e) {
             Craft::error('[isFree] '.$e->getMessage(), 'email-validator');
             return false;
@@ -243,10 +247,14 @@ class EmailValidatorService extends Component
     private function isDisposable()
     {
         try {
-            $providers = EmailValidator::getInstance()->emailProviderService->disposableProviders();
             $domain = $this->getDomain();
+            $provider = EmailValidator::getInstance()->emailProviderService->getProvider($domain, 'disposable');
 
-            return in_array($domain, $providers);
+            if ($provider->id) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (\Exception $e) {
             Craft::error('[isDisposable] '.$e->getMessage(), 'email-validator');
             return false;
