@@ -15,7 +15,6 @@ use lukeyouell\emailvalidator\EmailValidator;
 use Craft;
 use craft\web\Controller;
 
-use yii\helpers\Json;
 use yii\web\Response;
 
 class ProvidersController extends Controller
@@ -36,7 +35,7 @@ class ProvidersController extends Controller
         $freeProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('free');
         $disposableProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('disposable');
 
-        return Json::encode([
+        return $this->asJson([
             'freeProviderCount'       => $freeProviderCount,
             'disposableProviderCount' => $disposableProviderCount,
             'totalProviderCount'      => $freeProviderCount + $disposableProviderCount,
