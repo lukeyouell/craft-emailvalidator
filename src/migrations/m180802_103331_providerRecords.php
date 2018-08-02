@@ -2,6 +2,8 @@
 
 namespace lukeyouell\emailvalidator\migrations;
 
+use lukeyouell\emailvalidator\EmailValidator;
+
 use Craft;
 use craft\config\DbConfig;
 use craft\db\Migration;
