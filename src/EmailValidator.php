@@ -33,7 +33,7 @@ class EmailValidator extends Plugin
     // Public Properties
     // =========================================================================
 
-    public $schemaVersion = '1.0.0';
+    public $schemaVersion = '1.1.0';
 
     // Public Methods
     // =========================================================================
