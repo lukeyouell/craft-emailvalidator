@@ -16,7 +16,7 @@ use lukeyouell\emailvalidator\events\ValidationEvent;
 use Craft;
 use craft\base\Component;
 
-class EmailValidatorService extends Component
+class ValidationService extends Component
 {
     // Constants
     // =========================================================================
@@ -231,7 +231,7 @@ class EmailValidatorService extends Component
     {
         try {
             $domain = $this->getDomain();
-            $provider = EmailValidator::getInstance()->emailProviderService->getProvider($domain, 'free');
+            $provider = EmailValidator::getInstance()->providerService->getProvider($domain, 'free');
 
             if ($provider->id) {
                 return true;
@@ -248,7 +248,7 @@ class EmailValidatorService extends Component
     {
         try {
             $domain = $this->getDomain();
-            $provider = EmailValidator::getInstance()->emailProviderService->getProvider($domain, 'disposable');
+            $provider = EmailValidator::getInstance()->providerService->getProvider($domain, 'disposable');
 
             if ($provider->id) {
                 return true;
@@ -264,14 +264,14 @@ class EmailValidatorService extends Component
     private function didYouMean()
     {
         try {
-          $providers = EmailValidator::getInstance()->emailProviderService->freeProviders();
+          $providers = EmailValidator::getInstance()->providerService->getProvidersByType('free');
           $user = $this->getUser();
           $domain = $this->getDomain();
 
           $shortest = -1;
 
           foreach ($providers as $provider) {
-              $distance = levenshtein($provider, $domain);
+              $distance = levenshtein($provider->domain, $domain);
 
               // check for an exact match
               if ($distance == 0) {

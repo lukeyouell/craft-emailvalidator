@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.0 - 2018-08-02
+
+### Changed
+- Plugin now includes a list of over 6500 free & disposable email providers that can be regularly updated from the CP
+- `EmailProviderService` renamed to `ProviderService`
+- `EmailValidatorService` renamed to `ValidationService`
+
 ## 1.0.4 - 2018-07-08
 
 ### Added

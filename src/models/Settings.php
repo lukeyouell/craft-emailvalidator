@@ -32,6 +32,8 @@ class Settings extends Model
 
     public $allowDisposable = false;
 
+    public $providersLastUpdated = null;
+
     // Public Methods
     // =========================================================================
 
@@ -41,7 +43,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['typoCheck', 'allowNoMX', 'allowCatchAll', 'allowRoles', 'allowFree', 'allowDisposable'], 'boolean'],
+            [['typoCheck', 'allowNoMX', 'allowCatchAll', 'allowRoles', 'allowFree', 'allowDisposable'], 'boolean']
         ];
     }
 }

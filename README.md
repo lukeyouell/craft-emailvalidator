@@ -95,7 +95,7 @@ You can also validate an email address from within your own plugins/modules:
 ```php
 use lukeyouell\emailvalidator\EmailValidator;
 
-EmailValidator::getInstance()->emailValidatorService->validateEmail('joe.bloggs@email.co.uk');
+EmailValidator::getInstance()->validationService->validateEmail('joe.bloggs@email.co.uk');
 ```
 
 [This response](#response) will be returned.

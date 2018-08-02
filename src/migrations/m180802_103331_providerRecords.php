@@ -1,23 +1,16 @@
 <?php
-/**
- * Email Validator plugin for Craft CMS 3.x
- *
- * Email address validation for user registrations, custom forms and more.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\emailvalidator\migrations;
-
-use lukeyouell\emailvalidator\EmailValidator;
 
 use Craft;
 use craft\config\DbConfig;
 use craft\db\Migration;
 use craft\helpers\MigrationHelper;
 
-class Install extends Migration
+/**
+ * m180802_103331_providerRecords migration.
+ */
+class m180802_103331_providerRecords extends Migration
 {
     // Public Properties
     // =========================================================================
