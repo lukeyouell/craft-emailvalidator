@@ -45,7 +45,7 @@ class ProviderService extends Component
             ->where(['type' => $type])
             ->count();
 
-        return $count;
+        return (int)$count;
     }
 
     public function getProviderByDomain($domain)
