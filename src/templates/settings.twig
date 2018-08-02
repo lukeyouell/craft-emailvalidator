@@ -8,19 +8,19 @@
   <tbody>
     <tr>
       <th class="light">Free</th>
-      <td id="freeProviderCount">{{ freeProviderCount }}</td>
+      <td>{{ freeProviderCount }}</td>
     </tr>
     <tr>
       <th class="light">Disposable</th>
-      <td id="disposableProviderCount">{{ disposableProviderCount }}</td>
+      <td>{{ disposableProviderCount }}</td>
     </tr>
     <tr>
       <th class="light">Total</th>
-      <td id="totalProviderCount">{{ freeProviderCount + disposableProviderCount }}</td>
+      <td>{{ freeProviderCount + disposableProviderCount }}</td>
     </tr>
     <tr>
       <th class="light">Last updated</th>
-      <td id="totalProviderCount">{{ settings.providersLastUpdated ? settings.providersLastUpdated|datetime('short') : 'N/A' }}</td>
+      <td>{{ settings.providersLastUpdated ? settings.providersLastUpdated|datetime('short') : 'N/A' }}</td>
     </tr>
   </tbody>
 </table>

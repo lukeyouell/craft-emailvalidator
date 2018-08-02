@@ -9,11 +9,6 @@ $(button).on('click', function() {
   $(spinner).removeClass('hidden');
 
   Craft.postActionRequest('email-validator/providers/ajax', null, function(response) {
-    $('#settings-freeProviderCount').html(response.freeProviderCount);
-    $('#settings-disposableProviderCount').html(response.disposableProviderCount);
-    $('#settings-totalProviderCount').html(response.totalProviderCount);
-
-    $(spinner).addClass('hidden');
-    $(button).removeClass('disabled').html('Update providers');
+    location.reload();
   });
 });

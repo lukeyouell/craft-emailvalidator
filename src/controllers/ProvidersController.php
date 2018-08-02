@@ -32,14 +32,7 @@ class ProvidersController extends Controller
         EmailValidator::getInstance()->recordService->updateProviders('free');
         EmailValidator::getInstance()->recordService->updateProviders('disposable');
 
-        $freeProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('free');
-        $disposableProviderCount = EmailValidator::getInstance()->providerService->countProvidersByType('disposable');
-
-        return $this->asJson([
-            'freeProviderCount'       => $freeProviderCount,
-            'disposableProviderCount' => $disposableProviderCount,
-            'totalProviderCount'      => $freeProviderCount + $disposableProviderCount,
-        ]);
+        return true;
     }
 
     public function actionDisposable()
