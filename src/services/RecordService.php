@@ -17,14 +17,35 @@ use lukeyouell\emailvalidator\records\Provider as ProviderRecord;
 use Craft;
 use craft\base\Component;
 use craft\db\Query;
+use craft\helpers\DateTimeHelper;
 use craft\helpers\StringHelper;
 
 use yii\base\Exception;
+use yii\base\InvalidConfigException;
 
 class RecordService extends Component
 {
+    // Public Properties
+    // =========================================================================
+
+    public $plugin;
+
+    public $settings;
+
     // Public Methods
     // =========================================================================
+
+    public function init()
+    {
+        parent::init();
+
+        $this->plugin = EmailValidator::getInstance();
+        $this->settings = $this->plugin->getSettings();
+
+        if (!$this->settings->validate()) {
+            throw new InvalidConfigException('Email Validator settings don’t validate.');
+        }
+    }
 
     public function updateProviders($type = 'free')
     {
@@ -61,6 +82,9 @@ class RecordService extends Component
                         $count = $count + 1;
                     }
                 }
+
+                // Update 'providersLastUpdated' settings value
+                $this->providersLastUpdated();
 
                 Craft::info($count.' '.$type.' providers updated.', __METHOD__);
                 return true;
@@ -100,6 +124,18 @@ class RecordService extends Component
         $model->id = $record->id;
 
         return true;
+    }
+
+    public function providersLastUpdated()
+    {
+        $datetime = DateTimeHelper::currentUTCDateTime();
+        $now = $datetime->format('Y-m-d H:i:s');
+
+        Craft::$app->plugins->savePluginSettings($this->plugin, [
+            'providersLastUpdated' => $now,
+        ]);
+
+        return $now;
     }
 
     // Private Methods

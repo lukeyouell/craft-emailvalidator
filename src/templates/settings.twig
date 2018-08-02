@@ -18,6 +18,10 @@
       <th class="light">Total</th>
       <td id="totalProviderCount">{{ freeProviderCount + disposableProviderCount }}</td>
     </tr>
+    <tr>
+      <th class="light">Last updated</th>
+      <td id="totalProviderCount">{{ settings.providersLastUpdated ? settings.providersLastUpdated|datetime('short') : 'N/A' }}</td>
+    </tr>
   </tbody>
 </table>
 
