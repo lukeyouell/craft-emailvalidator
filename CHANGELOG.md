@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 2018-08-10
+
+### Fixed
+- 'Did You Mean' sometimes returned an empty suggestion (e.g. 'user@')
+
 ## 1.1.1 - 2018-08-02
 
 ### Fixed

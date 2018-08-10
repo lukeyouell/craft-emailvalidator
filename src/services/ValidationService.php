@@ -269,6 +269,7 @@ class ValidationService extends Component
           $domain = $this->getDomain();
 
           $shortest = -1;
+          $closest = null;
 
           foreach ($providers as $provider) {
               $distance = levenshtein($provider->domain, $domain);
@@ -287,7 +288,11 @@ class ValidationService extends Component
               }
           }
 
-          return $user.'@'.$closest;
+          if (($shortest > 0) and ($shortest <= 3)) {
+              return $user.'@'.$closest;
+          } else {
+              return null;
+          }
         } catch (\Exception $e) {
             Craft::error('[didYouMean] '.$e->getMessage(), 'email-validator');
             return null;
