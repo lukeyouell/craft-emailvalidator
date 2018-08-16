@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+- Improved settings appearance
+
 ## 1.1.2 - 2018-08-10
 
 ### Fixed

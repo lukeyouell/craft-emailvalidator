@@ -1,0 +1,33 @@
+{% extends "email-validator/_layouts/settings" %}
+
+{% do view.registerAssetBundle("lukeyouell\\emailvalidator\\assetbundles\\SettingsAsset") %}
+
+{% block content %}
+  <h2 class="first">Providers</h2>
+
+  <table class="data fullwidth fixed-layout">
+    <tbody>
+      <tr>
+        <th class="light">Free</th>
+        <td>{{ freeProviderCount }}</td>
+      </tr>
+      <tr>
+        <th class="light">Disposable</th>
+        <td>{{ disposableProviderCount }}</td>
+      </tr>
+      <tr>
+        <th class="light">Total</th>
+        <td>{{ freeProviderCount + disposableProviderCount }}</td>
+      </tr>
+      <tr>
+        <th class="light">Last updated</th>
+        <td>{{ settings.providersLastUpdated ? settings.providersLastUpdated|datetime('short') : 'N/A' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="buttons">
+    <div class="btn submit" id="settings-updateProviders">Update providers</div>
+    <div class="spinner hidden" id="settings-updateProvidersSpinner"></div>
+  </div>
+{% endblock %}

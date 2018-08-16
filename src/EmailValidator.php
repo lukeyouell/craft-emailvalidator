@@ -17,8 +17,10 @@ use Craft;
 use craft\base\Plugin;
 use craft\elements\User;
 use craft\events\PluginEvent;
+use craft\events\RegisterUrlRulesEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Plugins;
+use craft\web\UrlManager;
 
 use yii\base\Event;
 use yii\base\ModelEvent;
@@ -44,6 +46,16 @@ class EmailValidator extends Plugin
         self::$plugin = $this;
 
         Craft::$app->view->registerTwigExtension(new EmailValidatorTwigExtension());
+
+        // Register our CP routes
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
+                $event->rules['settings/email-validator/general'] = 'email-validator/settings/general';
+                $event->rules['settings/email-validator/providers'] = 'email-validator/settings/providers';
+            }
+        );
 
         // Redirect to settings after installation
         Event::on(
@@ -90,21 +102,6 @@ class EmailValidator extends Plugin
      */
     protected function settingsHtml(): string
     {
-        // Get and pre-validate the settings
-       $settings = $this->getSettings();
-       $settings->validate();
-
-       // Get the settings that are being defined by the config file
-       $overrides = Craft::$app->getConfig()->getConfigFromFile(strtolower($this->handle));
-
-       return Craft::$app->view->renderTemplate(
-            'email-validator/settings',
-            [
-               'freeProviderCount'       => $this->providerService->countProvidersByType('free'),
-               'disposableProviderCount' => $this->providerService->countProvidersByType('disposable'),
-               'settings'                => $settings,
-               'overrides'               => array_keys($overrides)
-           ]
-        );
+       return Craft::$app->view->renderTemplate('email-validator/settings');
     }
 }
