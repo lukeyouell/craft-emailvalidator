@@ -19,6 +19,15 @@
   <h2 class="first">Contact Form</h2>
 
   {{ forms.lightswitchField({
+    label:        'Enabled',
+    id:           'cfValidation',
+    name:         'settings[cfValidation]',
+    on:           settings.cfValidation,
+    disabled:     'cfValidation' in overrides,
+    warning:      'cfValidation' in overrides ? macros.configWarning('cfValidation')
+  }) }}
+
+  {{ forms.lightswitchField({
     first:         true,
     label:        'Format Check',
     instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',

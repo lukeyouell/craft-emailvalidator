@@ -34,6 +34,8 @@ class Settings extends Model
 
     public $providersLastUpdated = null;
 
+    public $cfValidation = false;
+
     public $cf_allowNoMX = false;
 
     public $cf_allowCatchAll = true;
@@ -54,7 +56,7 @@ class Settings extends Model
     {
         return [
             [['typoCheck', 'allowNoMX', 'allowCatchAll', 'allowRoles', 'allowFree', 'allowDisposable'], 'boolean'],
-            [['cf_allowNoMX', 'cf_allowCatchAll', 'cf_allowRoles', 'cf_allowFree', 'cf_allowDisposable'], 'boolean']
+            [['cfValidation', 'cf_allowNoMX', 'cf_allowCatchAll', 'cf_allowRoles', 'cf_allowFree', 'cf_allowDisposable'], 'boolean']
         ];
     }
 }
