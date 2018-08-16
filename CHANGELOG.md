@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+- [Contact Form](https://github.com/craftcms/contact-form) plugin support
+
 ### Changed
 - Improved settings appearance
 
