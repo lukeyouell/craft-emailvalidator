@@ -3,6 +3,7 @@
 {% set fullPageForm = true %}
 
 {% import "_includes/forms" as forms %}
+{% import "email-validator/_macros/settings" as macros %}
 
 {% block content %}
   {{ forms.hidden({
@@ -16,16 +17,6 @@
   })}}
 
   <h2 class="first">General Settings</h2>
-
-  {% macro configWarning(setting) -%}
-    {% set setting = '<code>' ~ setting ~ '</code>' %}
-    {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('email-validator', {
-        setting: setting,
-        file:    'email-validator.php'
-    })|raw }}
-  {%- endmacro %}
-
-  {% from _self import configWarning %}
 
   {{ forms.lightswitchField({
     first:         true,
@@ -42,7 +33,7 @@
     name:         'settings[typoCheck]',
     on:           settings.typoCheck,
     disabled:     'typoCheck' in overrides,
-    warning:      'typoCheck' in overrides ? configWarning('typoCheck')
+    warning:      'typoCheck' in overrides ? macros.configWarning('typoCheck')
   }) }}
 
   {{ forms.lightswitchField({
@@ -52,7 +43,7 @@
     name:         'settings[allowNoMX]',
     on:           settings.allowNoMX,
     disabled:     'allowNoMX' in overrides,
-    warning:      'allowNoMX' in overrides ? configWarning('allowNoMX')
+    warning:      'allowNoMX' in overrides ? macros.configWarning('allowNoMX')
   }) }}
 
   {{ forms.lightswitchField({
@@ -62,7 +53,7 @@
     name:         'settings[allowCatchAll]',
     on:           settings.allowCatchAll,
     disabled:     'allowCatchAll' in overrides,
-    warning:      'allowCatchAll' in overrides ? configWarning('allowCatchAll')
+    warning:      'allowCatchAll' in overrides ? macros.configWarning('allowCatchAll')
   }) }}
 
   {{ forms.lightswitchField({
@@ -72,7 +63,7 @@
     name:         'settings[allowRoles]',
     on:           settings.allowRoles,
     disabled:     'allowRoles' in overrides,
-    warning:      'allowRoles' in overrides ? configWarning('allowRoles')
+    warning:      'allowRoles' in overrides ? macros.configWarning('allowRoles')
   }) }}
 
   {{ forms.lightswitchField({
@@ -82,7 +73,7 @@
     name:         'settings[allowFree]',
     on:           settings.allowFree,
     disabled:     'allowFree' in overrides,
-    warning:      'allowFree' in overrides ? configWarning('allowFree')
+    warning:      'allowFree' in overrides ? macros.configWarning('allowFree')
   }) }}
 
   {{ forms.lightswitchField({
@@ -92,6 +83,6 @@
     name:         'settings[allowDisposable]',
     on:           settings.allowDisposable,
     disabled:     'allowDisposable' in overrides,
-    warning:      'allowDisposable' in overrides ? configWarning('allowDisposable')
+    warning:      'allowDisposable' in overrides ? macros.configWarning('allowDisposable')
   }) }}
 {% endblock %}
