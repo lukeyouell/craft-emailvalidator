@@ -113,6 +113,49 @@ class ValidationService extends Component
         return $errors;
     }
 
+    public function cfValidation($email = null)
+    {
+        if ($email === null) {
+            Craft::warning('Couldn\'t validate email address because no POST parameter named "fromEmail" exists.');
+            return false;
+        }
+
+        $validation = $this->validateEmail($email);
+
+        $errors = false;
+
+        if (!$validation['format_valid']) {
+            $errors = true;
+        }
+
+        if (!$this->settings->cf_allowNoMX and !$validation['mx_found']) {
+            $errors = true;
+        }
+
+        if (!$this->settings->cf_allowCatchAll and $validation['catch_all']) {
+            $errors = true;
+        }
+
+        if (!$this->settings->cf_allowRoles and $validation['role']) {
+            $errors = true;
+        }
+
+        if (!$this->settings->cf_allowFree and $validation['free']) {
+            $errors = true;
+        }
+
+        if (!$this->settings->cf_allowDisposable and $validation['disposable']) {
+            $errors = true;
+        }
+
+        if ($errors) {
+            Craft::warning('Contact Form submission blocked due to the supplied email address ('.$email.') failing email validation.', 'email-validator');
+            return true;
+        }
+
+        return $errors;
+    }
+
     // Private Methods
     // =========================================================================
 

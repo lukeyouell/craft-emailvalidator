@@ -59,12 +59,19 @@ Here's what that config file might look like along with a list of all of the pos
 <?php
 
 return [
-    'typoCheck'       => true,
-    'allowNoMX'       => false,
-    'allowCatchAll'   => true,
-    'allowRoles'      => true,
-    'allowFree'       => true,
-    'allowDisposable' => false
+    'typoCheck'          => true,
+    'allowNoMX'          => false,
+    'allowCatchAll'      => true,
+    'allowRoles'         => true,
+    'allowFree'          => true,
+    'allowDisposable'    => false,
+    // Contact Form plugin settings
+    'cfValidation'       => true,
+    'cf_allowNoMX'       => false,
+    'cf_allowCatchAll'   => true,
+    'cf_allowRoles'      => true,
+    'cf_allowFree'       => true,
+    'cf_allowDisposable' => false,
 ];
 ```
 
@@ -87,6 +94,14 @@ You can validate an email address from within your templates by using the follow
 ```
 
 [This response](#response) will be returned.
+
+### Contact Form Plugin
+
+If you have the [Contact Form](https://github.com/craftcms/contact-form) plugin installed you can validate submissions using Email Validator.
+
+Email Validator will automatically detect if this plugin is installed, all you need to do is head to:
+
+  Settings → Email Validator → Contact Form
 
 ### Plugins/Modules
 

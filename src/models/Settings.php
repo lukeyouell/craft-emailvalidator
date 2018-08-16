@@ -34,6 +34,18 @@ class Settings extends Model
 
     public $providersLastUpdated = null;
 
+    public $cfValidation = false;
+
+    public $cf_allowNoMX = false;
+
+    public $cf_allowCatchAll = true;
+
+    public $cf_allowRoles = true;
+
+    public $cf_allowFree = true;
+
+    public $cf_allowDisposable = false;
+
     // Public Methods
     // =========================================================================
 
@@ -43,7 +55,8 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['typoCheck', 'allowNoMX', 'allowCatchAll', 'allowRoles', 'allowFree', 'allowDisposable'], 'boolean']
+            [['typoCheck', 'allowNoMX', 'allowCatchAll', 'allowRoles', 'allowFree', 'allowDisposable'], 'boolean'],
+            [['cfValidation', 'cf_allowNoMX', 'cf_allowCatchAll', 'cf_allowRoles', 'cf_allowFree', 'cf_allowDisposable'], 'boolean']
         ];
     }
 }

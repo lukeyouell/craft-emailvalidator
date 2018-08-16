@@ -1,0 +1,87 @@
+{% extends "email-validator/_layouts/settings" %}
+
+{% set fullPageForm = true %}
+
+{% import "_includes/forms" as forms %}
+{% import "email-validator/_macros/settings" as macros %}
+
+{% block content %}
+  {{ forms.hidden({
+      name: 'action',
+      value: 'plugins/save-plugin-settings'
+  })}}
+
+  {{ forms.hidden({
+      name: 'pluginHandle',
+      value: plugin.handle
+  })}}
+
+  <h2 class="first">Contact Form</h2>
+
+  {{ forms.lightswitchField({
+    label:        'Enabled',
+    id:           'cfValidation',
+    name:         'settings[cfValidation]',
+    on:           settings.cfValidation,
+    disabled:     'cfValidation' in overrides,
+    warning:      'cfValidation' in overrides ? macros.configWarning('cfValidation')
+  }) }}
+
+  {{ forms.lightswitchField({
+    first:         true,
+    label:        'Format Check',
+    instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',
+    on:           true,
+    disabled:     true
+  }) }}
+
+  {{ forms.lightswitchField({
+    label:        'MX Records',
+    instructions: 'Allow submissions from domains that aren\'t configured to receive email.',
+    id:           'cf_allowNoMX',
+    name:         'settings[cf_allowNoMX]',
+    on:           settings.cf_allowNoMX,
+    disabled:     'cf_allowNoMX' in overrides,
+    warning:      'cf_allowNoMX' in overrides ? macros.configWarning('cf_allowNoMX')
+  }) }}
+
+  {{ forms.lightswitchField({
+    label:        'Catch All',
+    instructions: 'Allow submissions from domains that are configured to catch all incoming mail traffic.',
+    id:           'cf_allowCatchAll',
+    name:         'settings[cf_allowCatchAll]',
+    on:           settings.cf_allowCatchAll,
+    disabled:     'cf_allowCatchAll' in overrides,
+    warning:      'cf_allowCatchAll' in overrides ? macros.configWarning('cf_allowCatchAll')
+  }) }}
+
+  {{ forms.lightswitchField({
+    label:        'Roles',
+    instructions: 'Allow submissions from role-based email addresses.',
+    id:           'cf_allowRoles',
+    name:         'settings[cf_allowRoles]',
+    on:           settings.cf_allowRoles,
+    disabled:     'cf_allowRoles' in overrides,
+    warning:      'cf_allowRoles' in overrides ? macros.configWarning('cf_allowRoles')
+  }) }}
+
+  {{ forms.lightswitchField({
+    label:        'Free Providers',
+    instructions: 'Allow submissions from email addresses found to be using a free email provider such as Gmail and Yahoo!.',
+    id:           'cf_allowFree',
+    name:         'settings[cf_allowFree]',
+    on:           settings.cf_allowFree,
+    disabled:     'cf_allowFree' in overrides,
+    warning:      'cf_allowFree' in overrides ? macros.configWarning('cf_allowFree')
+  }) }}
+
+  {{ forms.lightswitchField({
+    label:        'Disposable Providers',
+    instructions: 'Allow submissions from email addresses found to be using a disposable email provider.',
+    id:           'cf_allowDisposable',
+    name:         'settings[cf_allowDisposable]',
+    on:           settings.cf_allowDisposable,
+    disabled:     'cf_allowDisposable' in overrides,
+    warning:      'cf_allowDisposable' in overrides ? macros.configWarning('cf_allowDisposable')
+  }) }}
+{% endblock %}

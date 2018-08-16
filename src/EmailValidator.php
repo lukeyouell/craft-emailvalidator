@@ -17,8 +17,13 @@ use Craft;
 use craft\base\Plugin;
 use craft\elements\User;
 use craft\events\PluginEvent;
+use craft\events\RegisterUrlRulesEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Plugins;
+use craft\web\UrlManager;
+
+use craft\contactform\Mailer;
+use craft\contactform\events\SendEvent;
 
 use yii\base\Event;
 use yii\base\ModelEvent;
@@ -44,6 +49,17 @@ class EmailValidator extends Plugin
         self::$plugin = $this;
 
         Craft::$app->view->registerTwigExtension(new EmailValidatorTwigExtension());
+
+        // Register our CP routes
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
+                $event->rules['settings/email-validator/general'] = 'email-validator/settings/general';
+                $event->rules['settings/email-validator/providers'] = 'email-validator/settings/providers';
+                $event->rules['settings/email-validator/contact-form'] = 'email-validator/settings/contact-form';
+            }
+        );
 
         // Redirect to settings after installation
         Event::on(
@@ -72,6 +88,17 @@ class EmailValidator extends Plugin
             'providerService'     => \lukeyouell\emailvalidator\services\ProviderService::class,
             'recordService'       => \lukeyouell\emailvalidator\services\RecordService::class,
         ]);
+
+        if (class_exists('craft\contactform\Mailer') and $this->settings->cfValidation) {
+            Event::on(Mailer::class, Mailer::EVENT_BEFORE_SEND, function(SendEvent $e) {
+                $email = Craft::$app->getRequest()->getBodyParam('fromEmail');
+                $errors = $this->validationService->cfValidation($email);
+
+                if ($errors) {
+                    $e->isSpam = true;
+                }
+            });
+        }
     }
 
     // Protected Methods
@@ -90,21 +117,6 @@ class EmailValidator extends Plugin
      */
     protected function settingsHtml(): string
     {
-        // Get and pre-validate the settings
-       $settings = $this->getSettings();
-       $settings->validate();
-
-       // Get the settings that are being defined by the config file
-       $overrides = Craft::$app->getConfig()->getConfigFromFile(strtolower($this->handle));
-
-       return Craft::$app->view->renderTemplate(
-            'email-validator/settings',
-            [
-               'freeProviderCount'       => $this->providerService->countProvidersByType('free'),
-               'disposableProviderCount' => $this->providerService->countProvidersByType('disposable'),
-               'settings'                => $settings,
-               'overrides'               => array_keys($overrides)
-           ]
-        );
+       return Craft::$app->view->renderTemplate('email-validator/settings');
     }
 }
