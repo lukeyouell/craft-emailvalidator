@@ -22,6 +22,9 @@ use craft\helpers\UrlHelper;
 use craft\services\Plugins;
 use craft\web\UrlManager;
 
+use craft\contactform\Mailer;
+use craft\contactform\events\SendEvent;
+
 use yii\base\Event;
 use yii\base\ModelEvent;
 
@@ -54,6 +57,7 @@ class EmailValidator extends Plugin
             function (RegisterUrlRulesEvent $event) {
                 $event->rules['settings/email-validator/general'] = 'email-validator/settings/general';
                 $event->rules['settings/email-validator/providers'] = 'email-validator/settings/providers';
+                $event->rules['settings/email-validator/contact-form'] = 'email-validator/settings/contact-form';
             }
         );
 
@@ -84,6 +88,21 @@ class EmailValidator extends Plugin
             'providerService'     => \lukeyouell\emailvalidator\services\ProviderService::class,
             'recordService'       => \lukeyouell\emailvalidator\services\RecordService::class,
         ]);
+
+        if (class_exists('Mailer')) {
+            Event::on(Mailer::class, Mailer::EVENT_BEFORE_SEND, function(SendEvent $e) {
+                $cf = Craft::$app->plugins->getPlugin('contact-form');
+
+                if ($cf) {
+                    $email = Craft::$app->getRequest()->getBodyParam('fromEmail');
+                    $errors = $this->validationService->cfValidation($email);
+
+                    if ($errors) {
+                        $e->isSpam = true;
+                    }
+                }
+            });
+        }
     }
 
     // Protected Methods

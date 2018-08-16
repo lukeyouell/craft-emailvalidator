@@ -10,6 +10,13 @@
     'providers': { title: 'Providers' },
 } %}
 
+{% if craft.app.plugins.getPlugin('contact-form') %}
+  {% set navItems = navItems|merge({
+      'plugins':        { heading: 'Plugins' },
+      'contact-form':   { title: 'Contact Form' },
+  }) %}
+{% endif %}
+
 {% if selectedItem is not defined %}
     {% set selectedItem = craft.app.request.getSegment(3) %}
 {% endif %}

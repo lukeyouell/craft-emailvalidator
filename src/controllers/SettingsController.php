@@ -67,4 +67,15 @@ class SettingsController extends Controller
 
       return $this->renderTemplate('email-validator/_settings/providers/index', $variables);
     }
+
+    public function actionContactForm()
+    {
+      $variables = [
+        'plugin'    => $this->plugin,
+        'settings'  => $this->settings,
+        'overrides' => $this->overrides,
+      ];
+
+      return $this->renderTemplate('email-validator/_settings/contact-form/index', $variables);
+    }
 }
