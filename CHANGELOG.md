@@ -2,13 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 1.2.0 - 2018-08-16
 
 ### Added
 - [Contact Form](https://github.com/craftcms/contact-form) plugin support
 
 ### Changed
-- Improved settings appearance
+- Improved appearance of settings
 
 ## 1.1.2 - 2018-08-10
 
