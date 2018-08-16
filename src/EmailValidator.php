@@ -89,17 +89,13 @@ class EmailValidator extends Plugin
             'recordService'       => \lukeyouell\emailvalidator\services\RecordService::class,
         ]);
 
-        if (class_exists('Mailer')) {
+        if (class_exists('craft\contactform\Mailer')) {
             Event::on(Mailer::class, Mailer::EVENT_BEFORE_SEND, function(SendEvent $e) {
-                $cf = Craft::$app->plugins->getPlugin('contact-form');
+                $email = Craft::$app->getRequest()->getBodyParam('fromEmail');
+                $errors = $this->validationService->cfValidation($email);
 
-                if ($cf) {
-                    $email = Craft::$app->getRequest()->getBodyParam('fromEmail');
-                    $errors = $this->validationService->cfValidation($email);
-
-                    if ($errors) {
-                        $e->isSpam = true;
-                    }
+                if ($errors) {
+                    $e->isSpam = true;
                 }
             });
         }
