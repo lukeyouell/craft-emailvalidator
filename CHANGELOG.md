@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Fixed
+- Disabled 'Format Check' light switch field can no longer be toggled
+
 ## 1.2.0 - 2018-08-16
 
 ### Added
