@@ -76,9 +76,9 @@ class ProviderService extends Component
     {
         return (new Query())
             ->select([
-                'ev_providers.id',
-                'ev_providers.type',
-                'ev_providers.domain',
+                'id',
+                'type',
+                'domain',
             ])
             ->orderBy('dateCreated')
             ->from(['{{%ev_providers}}']);
