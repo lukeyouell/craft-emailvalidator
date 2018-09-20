@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 1.2.1 - 2018-09-20
 
 ### Fixed
 - Disabled 'Format Check' light switch field can no longer be toggled
+- Provider records weren't working with prefixed DB tables [#13](https://github.com/lukeyouell/craft-emailvalidator/issues/13)
 
 ## 1.2.0 - 2018-08-16
 
