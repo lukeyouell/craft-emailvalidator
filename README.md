@@ -165,6 +165,8 @@ Returns `true` or `false` depending on whether or not the requested email addres
 
 Some things to do, and ideas for potential features:
 
+* Switch to using jobs to update list of providers
+* Console commands
 * Custom rules validator
 * SMTP verification
 * Commerce integration
