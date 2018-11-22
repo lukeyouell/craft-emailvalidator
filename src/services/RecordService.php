@@ -55,7 +55,7 @@ class RecordService extends Component
         if ($type == 'free') {
             $source = 'https://gist.githubusercontent.com/tbrianjones/5992856/raw/free_email_provider_domains.txt';
         } elseif ($type == 'disposable') {
-            $source = 'https://raw.githubusercontent.com/martenson/disposable-email-domains/master/disposable_email_blacklist.conf';
+            $source = 'https://raw.githubusercontent.com/martenson/disposable-email-domains/master/disposable_email_blocklist.conf';
         }
 
         if ($source) {
@@ -66,6 +66,9 @@ class RecordService extends Component
                 $count = 0;
 
                 foreach ($domains as $domain) {
+                    // Convert to utf-8
+                    $domain = utf8_encode($domain);
+                    
                     $provider = EmailValidator::getInstance()->providerService->getProvider($domain, $type);
 
                     if (!$provider) {

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.2 - 2018-11-22
+
+### Fixed
+- Updated resource URL for disposable email providers which for some reason was changed by the host
+- Fetched domains are now encoded to UTF-8 before being inserted into the database
+
 ## 1.2.1 - 2018-09-20
 
 ### Fixed
