@@ -1,0 +1,18 @@
+{% macro providerCard(colour, icon, label, value) %}
+    <div class="tw-bg-white tw-p-4 tw-border tw-border-solid tw-border-grey-light tw-rounded">
+      <div class="tw-flex tw-items-center tw--mx-2">
+        <div class="tw-px-2">
+          <div class="tw-flex tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-bg-{{ colour }}-lighter tw-rounded-full">
+            <div class="tw-h-6 tw-text-{{ colour }}">
+              {% include 'email-validator/_icons/light/' ~ icon ~ '.svg' %}
+            </div>
+          </div>
+        </div>
+
+        <div class="tw-px-2 tw-leading-none">
+          <div class="tw-text-xs tw-text-grey-dark tw-mb-1">{{ label|t('email-validator') }}</div>
+          <div class="tw-text-xl tw-font-bold tw-text-black">{{ value }}</div>
+        </div>
+      </div>
+    </div>
+{% endmacro %}

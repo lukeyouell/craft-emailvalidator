@@ -1,0 +1,41 @@
+{
+    "name": "lukeyouell/craft-emailvalidator",
+    "description": "Email address validation for user registrations, custom forms and more.",
+    "type": "craft-plugin",
+    "version": "2.0.0-dev",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "email validator"
+    ],
+    "support": {
+        "docs": "https://github.com/lukeyouell/craft-emailvalidator/blob/master/README.md",
+        "issues": "https://github.com/lukeyouell/craft-emailvalidator/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luke Youell",
+            "homepage": "https://github.com/lukeyouell"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0",
+        "egulias/email-validator": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+          "lukeyouell\\emailvalidator\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Email Validator",
+        "handle": "email-validator",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-emailvalidator/master/CHANGELOG.md",
+        "class": "lukeyouell\\emailvalidator\\EmailValidator"
+    }
+}

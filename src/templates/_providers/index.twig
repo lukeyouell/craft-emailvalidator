@@ -1,0 +1,51 @@
+{% extends 'email-validator/_layouts/cp' %}
+
+{% import "_includes/forms" as forms %}
+{% import "email-validator/_includes/macros" as macros %}
+
+{% block content %}
+  <div class="tw-flex tw-flex-wrap tw--mx-3">
+    <div class="tw-flex-1 tw-px-3 tw-mb-6">
+      {{ macros.providerCard('blue', 'at', 'Total providers', count.total) }}
+    </div>
+
+    <div class="tw-w-full md:tw-w-auto md:tw-flex-1 tw-px-3 tw-mb-6">
+      {{ macros.providerCard('indigo', 'tag', 'Free providers', count.free) }}
+    </div>
+
+    <div class="tw-flex-1 tw-px-3 tw-mb-6">
+      {{ macros.providerCard('red', 'fire', 'Disposable providers', count.disposable) }}
+    </div>
+  </div>
+
+  {% if providers %}
+    <div class="tw-mb-6 tw-border tw-border-solid tw-border-grey-light tw-rounded tw-overflow-hidden">
+      <table class="tw-w-full">
+        <thead>
+          <tr class="tw-bg-grey-lightest">
+            <th class="tw-px-4 tw-py-3">Provider</th>
+            <th class="tw-px-4 tw-py-3">Type</th>
+            <th class="tw-w-px tw-px-4 tw-py-3">Enabled</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for provider in providers %}
+            <tr class="tw-border-t tw-border-solid tw-border-grey-light">
+              <td class="tw-px-4 tw-py-3">{{ provider.provider }}</td>
+              <td class="tw-px-4 tw-py-3">{{ provider.type|title }}</td>
+              <td class="tw-px-4 tw-py-3">
+                {{ forms.lightswitchField({
+                  small: true,
+                  on: provider.enabled,
+                }) }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+  No providers found.
+  {% endif %}
+{% endblock %}
